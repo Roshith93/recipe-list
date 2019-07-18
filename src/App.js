@@ -1,26 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
+import React,{Component} from 'react';
 import './App.css';
+import Recipe from './component/Recipe';
+import RecipeDetail from './component/RecipeDetail';
+import RecipeLists from './component/RecipeList';
+import RecipeSearch from './component/RecipeSearch';
 
-function App() {
+class App extends Component {
+  state={
+    data: null
+  }
+  render(){
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <React.Fragment>
+      <Recipe />
+      <RecipeDetail />
+      <RecipeLists/>
+      <RecipeSearch />
+    </React.Fragment>
   );
+  }
 }
 
 export default App;
