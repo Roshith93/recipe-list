@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import {Link} from 'react-router-dom'
+import {RecipeConsumer} from '../Context'
 
 class Recipe extends Component {
   render() {
@@ -16,11 +18,22 @@ class Recipe extends Component {
                 <h6 className="text-warning text-slanted">Publisher {publisher}</h6>
               </div>
               <div className="card-footer">
-                <button 
+                <RecipeConsumer>
+                  {value => {
+                    const {getRecipeDetails} = value;
+                    return(
+                      <Link to="/detail">
+                      <button 
                     type="button"
-                    className="btn btn-primary text-capitalioze">
+                    className="btn btn-primary text-capitalioze"
+                    onClick={getRecipeDetails.bind(this, recipe_id)}>
                       Details
-                </button>
+                    </button>
+                      </Link>
+                    )
+                  }}
+                </RecipeConsumer>
+                
                 <a href={source_url}
                    className="btn btn-success mx-2 text-capitalize"
                    target="_blank"

@@ -9,7 +9,6 @@ class RecipeLists extends Component {
     return (
       <React.Fragment>
         <RecipeSearch />
-        
         <div className="container my-5">
             <div className="row">
                 <div className="col-10 mx-auto col-md-6 text-center text-uppercase mb-3">

@@ -10,8 +10,18 @@ class RecipeProvider extends Component {
     state= {
         recipes: recipes,
         api: 'https://www.food2fork.com/api/search?key=618236eb4a30670eeb464d768575fcee',
+        apiDetail: `https://www.food2fork.com/api/get?key=618236eb4a30670eeb464d768575fcee`,
         recipeDetail: recipe,
-        recipeList: recipes
+    }
+
+    getRecipeDetails = async (id) => {
+        const response = await axios.get(this.state.apiDetail + `&rId=${id}`)
+        console.log("getting recipe id", response.data)
+        this.setState(()=>{
+            return{
+                recipeDetail: response.data.recipe
+            }
+        })
     }
     // getRecipes = async () => {
     //     try{
@@ -36,7 +46,10 @@ class RecipeProvider extends Component {
       
     return (
       <React.Fragment>
-        <RecipeContext.Provider value={{...this.state}}>
+        <RecipeContext.Provider value={{
+                ...this.state,
+                getRecipeDetails: this.getRecipeDetails
+                }}>
             {this.props.children}
          </RecipeContext.Provider>
       </React.Fragment>

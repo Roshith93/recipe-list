@@ -4,9 +4,10 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import {RecipeProvider} from './Context'
+import {BrowserRouter} from 'react-router-dom'
 
 
-const what= <RecipeProvider><App /></RecipeProvider>
+const what= <RecipeProvider><BrowserRouter><App /></BrowserRouter></RecipeProvider>
 ReactDOM.render(what, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
