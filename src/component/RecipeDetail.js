@@ -8,8 +8,8 @@ class RecipeDetail extends Component {
       <React.Fragment>
         <RecipeConsumer>
         {value => {
-          console.log(value.recipeDetail)
           const {recipe_id,f2f_url, image_url, ingredients, publisher, publisher_url, source_url, title} = value.recipeDetail;
+          const {handleIndex} = value
           return (
               <div className="container">
                 <div className="row">
@@ -17,7 +17,8 @@ class RecipeDetail extends Component {
                         <Link to="/">
                     <button 
                       type="button"
-                      className="btn btn-warning mb-5 text-capitalize">
+                      className="btn btn-warning mb-5 text-capitalize"
+                      onClick={handleIndex.bind(this, 1)}>
                         Back to Recipe List
                     </button>
                         </Link>

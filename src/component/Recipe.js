@@ -4,6 +4,7 @@ import {RecipeConsumer} from '../Context'
 
 class Recipe extends Component {
   render() {
+    const {findPage} = this.props
     const {image_url, publisher, source_url, title, recipe_id} = this.props.recipe;
     return (
       <React.Fragment>
@@ -26,7 +27,7 @@ class Recipe extends Component {
                       <button 
                     type="button"
                     className="btn btn-primary text-capitalioze"
-                    onClick={getRecipeDetails.bind(this, recipe_id)}>
+                    onClick={ getRecipeDetails.bind(this, 0,recipe_id) }>
                       Details
                     </button>
                       </Link>

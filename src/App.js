@@ -1,32 +1,40 @@
 import React,{ Component } from 'react';
 import './App.css';
-import RecipeList from './component/RecipeList';
 import Default from './component/Default'
-
-import RecipeDetail from './component/RecipeDetail'
 import {RecipeConsumer} from './Context'
 import {Route, Switch} from 'react-router-dom'
 
 class App extends Component {
   state = {
-    pageIndex: 1
+    pageIndex: 0
   }
-  // This is for conditional rendering the pages
-  displayPage = index => {
-    switch (index) {
-      case 1:
-        return  <RecipeList />
-        break;
-      case 2:
-        return <RecipeDetail />
-      default: return <p>err</p>
-        break;
+
+  handleIndex = (index) => {
+    this.setState(()=> {
+    return{
+      pageIndex: index
     }
+    })
   }
+
+  // handleDetail = (index) => {
+  //   this.setState(()=> {
+  //   return{
+  //     pageIndex: index
+  //   }
+  //   })
+  // }
+  // This is for conditional rendering the pages
+
   render(){
   return (
     <React.Fragment>
-        {this.displayPage(this.state.pageIndex)}
+      <RecipeConsumer>
+        {value => {
+          const {displayPage,pageIndex} = value;
+            return displayPage(pageIndex)
+        }}
+      </RecipeConsumer>
     </React.Fragment>
   );
   }
