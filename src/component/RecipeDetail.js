@@ -8,7 +8,7 @@ class RecipeDetail extends Component {
       <React.Fragment>
         <RecipeConsumer>
         {value => {
-          const {recipe_id,f2f_url, image_url, ingredients, publisher, publisher_url, source_url, title} = value.recipeDetail;
+          const {image_url, ingredients, publisher, publisher_url, source_url, title} = value.recipeDetail;
           const {handleIndex} = value
           return (
               <div className="container">

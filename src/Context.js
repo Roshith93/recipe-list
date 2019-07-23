@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import {recipes} from './tempList'
-import {recipe} from './tempDetails'
 import axios from 'axios'
 import RecipeList from './component/RecipeList';
 import RecipeDetail from './component/RecipeDetail'
+// import {recipes} from './tempList'
+// import {recipe} from './tempDetails'
 
 
 
@@ -11,12 +11,12 @@ const RecipeContext = React.createContext();
 // it provides two component called Provider and Consumer
 class RecipeProvider extends Component {
     state= {
-        recipes: recipes,
+        recipes: [],
         api: 'https://www.food2fork.com/api/search?key=618236eb4a30670eeb464d768575fcee',
         apiDetail: `https://www.food2fork.com/api/get?key=618236eb4a30670eeb464d768575fcee`,
-        recipeDetail: recipe,
-        pageIndex: 1
-
+        recipeDetail: [],
+        pageIndex: 1,
+        searchQuery: ""
     }
     handleIndex = (index) => {
     this.setState(()=> {
@@ -29,9 +29,9 @@ class RecipeProvider extends Component {
   displayPage = index => {
     switch (index) {
       case 1:
-        return  <RecipeList pageIndex={this.state.pageIndex}/>
+        return  <RecipeList />
       case 0:
-        return <RecipeDetail pageIndex={this.state.pageIndex} handleIndex={this.handleIndex}/>
+        return <RecipeDetail/>
       default: return <p>err</p>
     }
   }
@@ -49,16 +49,42 @@ class RecipeProvider extends Component {
     getRecipes = async () => {
         try{
         const response = await axios.get(this.state.api)
-        console.log(response)
-        this.setState(() => {
-            return {
+        // console.log(response)
+        if(response.data.recipes.length !== 0){
+          this.setState(()=>{
+           return {
                 recipes:response.data.recipes
             }
-        },()=>console.log("success")
-        )
-        }catch{
+        })
+        }
+        }
+        catch{
             console.log("error")
         }
+    } 
+    handleChange = e => {
+      const {name, value} = e.target;
+      this.setState(()=> {
+        return{
+          [name]: value
+        }
+      },() => {
+        this.searchRecipe()
+      })
+    }
+    searchRecipe = async () => {
+      try{
+        const response = await axios.get(`${this.state.api}&q=${this.state.searchQuery}`)
+        
+        console.log(response)
+        this.setState(()=>{
+           return {
+                recipes:response.data.recipes
+            }
+        })
+      }catch{
+        console.log("err")
+      }
     }
     componentDidMount(){
         this.getRecipes();
@@ -71,7 +97,8 @@ class RecipeProvider extends Component {
                 ...this.state,
                 getRecipeDetails: this.getRecipeDetails,
                 handleIndex: this.handleIndex,
-                displayPage: this.displayPage
+                displayPage: this.displayPage,
+                handleChange: this.handleChange
                 }}>
             {this.props.children}
          </RecipeContext.Provider>

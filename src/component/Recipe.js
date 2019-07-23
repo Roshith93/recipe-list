@@ -4,7 +4,6 @@ import {RecipeConsumer} from '../Context'
 
 class Recipe extends Component {
   render() {
-    const {findPage} = this.props
     const {image_url, publisher, source_url, title, recipe_id} = this.props.recipe;
     return (
       <React.Fragment>
